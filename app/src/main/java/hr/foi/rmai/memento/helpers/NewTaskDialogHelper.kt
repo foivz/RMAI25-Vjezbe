@@ -72,9 +72,10 @@ class NewTaskDialogHelper(private val view: View) {
         val selectedCourse = spnCourse.selectedItem as TaskCourse
 
         return Task(
+            0,
             newTaskName,
             selectedDateTime.time,
-            selectedCourse,
+            selectedCourse.id,
             false
         )
     }
