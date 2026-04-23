@@ -15,6 +15,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import hr.foi.rmai.memento.adapters.MainPagerAdapter
 import hr.foi.rmai.memento.database.TasksDatabase
 import hr.foi.rmai.memento.helpers.MockDataLoader
+import androidx.core.view.get
 
 class MainActivity : AppCompatActivity() {
     lateinit var tabLayout: TabLayout
@@ -47,15 +48,24 @@ class MainActivity : AppCompatActivity() {
             )
         }.attach()
 
-        navView.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.title) {
-                getString(R.string.tasks_pending) -> viewPager2.setCurrentItem(0, true)
-                getString(R.string.tasks_completed) -> viewPager2.setCurrentItem(1, true)
-                getString(R.string.news) -> viewPager2.setCurrentItem(2, true)
-            }
-            navDrawerLayout.closeDrawers()
-            return@setNavigationItemSelectedListener true
+        mainPagerAdapter.fragmentItems.withIndex().forEach { (index, fragmentItem) ->
+            navView.menu
+                .add(fragmentItem.titleRes)
+                .setIcon(fragmentItem.iconRes)
+                .setCheckable(true)
+                .setChecked((index == 0))
+                .setOnMenuItemClickListener {
+                    viewPager2.setCurrentItem(index, true)
+                    navDrawerLayout.closeDrawers()
+                    return@setOnMenuItemClickListener true
+                }
         }
+
+        viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                navView.menu[position].isChecked = true
+            }
+        })
 
         TasksDatabase.buildInstance(applicationContext)
         MockDataLoader.loadMockData()
