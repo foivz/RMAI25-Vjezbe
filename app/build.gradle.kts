@@ -55,4 +55,6 @@ dependencies {
     implementation(libs.retrofit)
 
     implementation(libs.picasso)
+
+    implementation(libs.kotlinx.coroutines.android)
 }
