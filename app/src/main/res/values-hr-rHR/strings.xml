@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Memento</string>
+    <string name="tasks_pending">Aktualno</string>
+    <string name="tasks_completed">Dovršeno</string>
+    <string name="news">Vijesti</string>
+    <string name="task_name">Naziv zadatka</string>
+    <string name="date">Datum</string>
+    <string name="time">Vrijeme</string>
+    <string name="course">Kolegij</string>
+    <string name="create_new_task">Stvori novi zadatak</string>
+    <string name="news_list_item_image_desc">Nova stavka novosti.</string>
+    <string name="refresh_news_button_desc">Gumb za osvježavanje.</string>
+    <string name="news_ws_err_msg">Dogodila se greška prilikom dohvaćanja vijesti.</string>
+    <string name="task_has_timer">Vrijeme za zadatak</string>
+    <string name="preferences_force_dark_mode">Tamna tema</string>
+    <string name="preferences_app_language">Jezik aplikacije</string>
+</resources>

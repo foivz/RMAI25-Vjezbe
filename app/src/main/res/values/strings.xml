@@ -3,7 +3,6 @@
     <string name="tasks_pending">Pending</string>
     <string name="tasks_completed">Completed</string>
     <string name="news">News</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="task_name">Task name</string>
     <string name="date">Date</string>
     <string name="time">Time</string>
@@ -13,4 +12,7 @@
     <string name="refresh_news_button_desc">Refresh button.</string>
     <string name="news_ws_err_msg">An error has occurred while fetching news.</string>
     <string name="task_has_timer">Task has timer</string>
+    <string name="preferences_force_dark_mode">Force dark mode</string>
+    <string name="preferences_app_language">Application language</string>
+    <string name="preferences_template_task_name">Template task name</string>
 </resources>

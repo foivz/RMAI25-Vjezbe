@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <CheckBoxPreference
+        android:key="preference_dark_mode"
+        android:title="@string/preferences_force_dark_mode"
+        android:defaultValue="false"
+        app:icon="@drawable/outline_dark_mode_24" />
+    <ListPreference
+        android:key="preference_language"
+        android:title="@string/preferences_app_language"
+        android:defaultValue="1"
+        android:entries="@array/language_entries"
+        android:entryValues="@array/language_values"
+        app:icon="@drawable/outline_g_translate_24"
+        app:dialogIcon="@drawable/outline_g_translate_24" />
+    <EditTextPreference
+        android:key="preference_default_task_name"
+        android:title="@string/preferences_template_task_name"
+        android:selectAllOnFocus="true"
+        android:singleLine="true" />
+</PreferenceScreen>
+
+
+
+
+
+
+
+
+
+
+
+
