@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +23,7 @@ import hr.foi.rmai.memento.database.TasksDatabase
 import hr.foi.rmai.memento.helpers.MockDataLoader
 import androidx.core.view.get
 import androidx.preference.PreferenceManager
+import hr.foi.rmai.memento.game.GameActivity
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
@@ -38,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var viewPager2: ViewPager2
     lateinit var navDrawerLayout: DrawerLayout
     lateinit var navView: NavigationView
+    lateinit var btnStartGame: Button
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(applyUserSettings(newBase))
@@ -51,6 +54,12 @@ class MainActivity : AppCompatActivity() {
         viewPager2 = findViewById(R.id.viewpager)
         navDrawerLayout = findViewById(R.id.nav_drawer_layout)
         navView = findViewById(R.id.nav_view)
+
+        btnStartGame = findViewById(R.id.btnStartGame)
+        btnStartGame.setOnClickListener {
+            val intent = Intent(this, GameActivity::class.java)
+            startActivity(intent)
+        }
 
         val mainPagerAdapter = MainPagerAdapter(
             supportFragmentManager,

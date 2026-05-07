@@ -15,4 +15,5 @@
     <string name="preferences_force_dark_mode">Force dark mode</string>
     <string name="preferences_app_language">Application language</string>
     <string name="preferences_template_task_name">Template task name</string>
+    <string name="start_game">Start game</string>
 </resources>

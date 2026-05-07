@@ -54,8 +54,8 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.converter.gson)
     implementation(libs.retrofit)
-
     implementation(libs.picasso)
-
     implementation(libs.kotlinx.coroutines.android)
+
+    implementation(libs.androidx.window)
 }
