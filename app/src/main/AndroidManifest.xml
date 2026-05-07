@@ -18,6 +18,9 @@
         android:theme="@style/Theme.Memento"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".game.GameActivity"
+            android:exported="false" />
+        <activity
             android:name=".PreferencesActivity"
             android:exported="false" />
 

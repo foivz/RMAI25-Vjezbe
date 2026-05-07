@@ -7,11 +7,9 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.activity.enableEdgeToEdge
+import android.widget.Button
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.navigation.NavigationView
@@ -22,6 +20,7 @@ import hr.foi.rmai.memento.database.TasksDatabase
 import hr.foi.rmai.memento.helpers.MockDataLoader
 import androidx.core.view.get
 import androidx.preference.PreferenceManager
+import hr.foi.rmai.memento.game.GameActivity
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
@@ -33,6 +32,7 @@ class MainActivity : AppCompatActivity() {
                 recreate()
             }
         }
+    lateinit var btnStartGame : Button
     lateinit var onSharedPreferencesListener: SharedPreferences.OnSharedPreferenceChangeListener
     lateinit var tabLayout: TabLayout
     lateinit var viewPager2: ViewPager2
@@ -51,6 +51,12 @@ class MainActivity : AppCompatActivity() {
         viewPager2 = findViewById(R.id.viewpager)
         navDrawerLayout = findViewById(R.id.nav_drawer_layout)
         navView = findViewById(R.id.nav_view)
+        btnStartGame = findViewById(R.id.btnStartGame)
+
+        btnStartGame.setOnClickListener {
+            val intent = Intent(this, GameActivity::class.java)
+            startActivity(intent)
+        }
 
         val mainPagerAdapter = MainPagerAdapter(
             supportFragmentManager,
