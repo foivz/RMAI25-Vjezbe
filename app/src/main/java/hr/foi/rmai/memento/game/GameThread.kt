@@ -17,6 +17,9 @@ class GameThread(val surfaceHolder: SurfaceHolder, val gameView: GameView): Thre
 
             if (canvas != null) {
                 frameStartTime = System.currentTimeMillis()
+                if (frameElapsedTime > 0) {
+                    fps = (1000 / frameElapsedTime).toInt()
+                }
                 gameView.update(fps)
                 gameView.draw(canvas)
                 surfaceHolder.unlockCanvasAndPost(canvas)

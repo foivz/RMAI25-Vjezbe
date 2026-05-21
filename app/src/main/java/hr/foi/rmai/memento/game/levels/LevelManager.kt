@@ -18,6 +18,7 @@ class LevelManager(
 
     private var currentLevel: LevelData? = null
     var playing = false
+    var gravity: Float = 6f
     private var currentIndex = 0
     var player: Player
 
@@ -29,9 +30,8 @@ class LevelManager(
         }
 
         player = Player(0f, 0f)
+        loadMapData(context, pixelsPerMeter, playerX, playerY)
         playing = true
-
-        // load
     }
 
     fun getBitmapIndex(blockType: Char) : Int {
@@ -89,6 +89,16 @@ class LevelManager(
                     currentIndex++
                 }
             }
+        }
+    }
+
+
+    fun switchPlayingStatus() {
+        playing = !playing
+        if (playing) {
+            gravity = 6f
+        } else {
+            gravity = 0f
         }
     }
 }
