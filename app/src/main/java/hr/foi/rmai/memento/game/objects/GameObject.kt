@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import hr.foi.rmai.memento.game.WorldLocation
 import androidx.core.graphics.scale
+import hr.foi.rmai.memento.game.RectHitbox
 
 abstract class GameObject(
     val width: Int,
@@ -13,6 +14,7 @@ abstract class GameObject(
     val bitmapName: String,
     val type: Char
 ) {
+    val rectHitbox = RectHitbox()
     val worldLocation: WorldLocation = WorldLocation(0f, 0f, 0)
     var active = true
     var visible = true
@@ -79,6 +81,13 @@ abstract class GameObject(
         )
 
         return bitmap
+    }
+
+    fun updateRectHitbox() {
+        rectHitbox.top = worldLocation.y
+        rectHitbox.left = worldLocation.x
+        rectHitbox.bottom = worldLocation.y + height
+        rectHitbox.right = worldLocation.x + width
     }
 
     abstract fun update(fps: Int, gravity: Float)

@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
+import android.graphics.RectF
 import android.view.MotionEvent
 import android.view.SurfaceView
 import android.view.View
@@ -12,10 +13,15 @@ import hr.foi.rmai.memento.game.levels.LevelManager
 import hr.foi.rmai.memento.game.objects.GameObject
 import java.util.logging.Level
 
-class GameView(context: Context, width: Int, height: Int): SurfaceView(context) {
+class GameView(
+    context: Context,
+    private val width: Int,
+    private val height: Int
+): SurfaceView(context) {
     private val paint = Paint()
     private val viewport: Viewport
     private lateinit var levelManager: LevelManager
+    private lateinit var inputController: InputController
     init {
         viewport = Viewport(width, height)
         loadLevel("TestLevel", 16f, 0.25f)
@@ -24,9 +30,7 @@ class GameView(context: Context, width: Int, height: Int): SurfaceView(context) 
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        when (event.action and MotionEvent.ACTION_MASK) {
-            MotionEvent.ACTION_DOWN -> levelManager.switchPlayingStatus()
-        }
+        inputController.handleInput(event)
 
         return true
     }
@@ -35,6 +39,7 @@ class GameView(context: Context, width: Int, height: Int): SurfaceView(context) 
         super.draw(canvas)
 
         if (holder.surface.isValid) {
+            paint.setColor(Color.argb(255, 0, 0, 0))
             canvas.drawColor(Color.argb(255, 0, 0, 200))
 
             var toScreen2d: Rect
@@ -56,6 +61,18 @@ class GameView(context: Context, width: Int, height: Int): SurfaceView(context) 
                     }
                 }
             }
+
+            paint.setColor(Color.argb(80, 255, 255, 255))
+            for (rect in inputController.getButtons()) {
+                val rf = RectF(
+                    rect.left.toFloat(),
+                    rect.top.toFloat(),
+                    rect.right.toFloat(),
+                    rect.bottom.toFloat()
+                )
+
+                canvas.drawRoundRect(rf, 15f, 15f, paint)
+            }
         }
     }
 
@@ -69,6 +86,7 @@ class GameView(context: Context, width: Int, height: Int): SurfaceView(context) 
                     gameObject.height.toFloat()
                 )) {
                     gameObject.visible = true
+                    checkCollisionsWithPlayer(gameObject)
                 }
 
                 if (levelManager.playing) {
@@ -100,10 +118,33 @@ class GameView(context: Context, width: Int, height: Int): SurfaceView(context) 
             playerY
         )
 
+        inputController = InputController(
+            width,
+            height,
+            levelManager
+        )
+
         viewport.setWorldCenter(
             levelManager.player.worldLocation.x,
             levelManager.player.worldLocation.y
         )
+    }
+
+    private fun checkCollisionsWithPlayer(gameObject: GameObject) {
+        val hit = levelManager.player.checkCollisions(gameObject.rectHitbox)
+
+        if (hit > 0) {
+            when (gameObject.type) {
+                else -> {
+                    if (hit == 1) { // Lijevo ili desno
+                        levelManager.player.xVelocity = 0f
+                    }
+                    if (hit == 2) { // Stopala
+                        levelManager.player.isFalling = false
+                    }
+                }
+            }
+        }
     }
 }
 
